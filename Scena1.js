@@ -132,6 +132,8 @@ class Scena1 {
     this.c1= null;
     this.c2= null;
     this.pg = null;
+    this.playButton2;  // Variable for the play button
+
 
     this.micStarted = false;  // To track if the mic has successfully started
 
@@ -172,13 +174,37 @@ class Scena1 {
     this.shape1 = new Shape('noiseShape', min(width, height) * 0.30, null, color(215, 88, 106, 50), this.t);
     this.shape3 = new Shape('noiseShape1', min(width, height) * 0.50, null, color(94, 158, 159, 50), this.t);
     this.shape2 = new Shape('circle', height / 8, color(34, 34, 34, 60), null, this.t);
-    this.shape4 = new Shape('circle', height / 8, color(34, 34, 34, 0), null, this.t);
+    this.shape4 = new Shape('circle', height / 8, color(34, 34, 34, 60), null, this.t);
     this.shape5 = new Shape('noiseShape2', min(width, height) * 0.20, null, color(0, 0, 0, 20), this.t);
 
     noFill();
     this.t = 0;
-  }
 
+     // Create a "Start" button to start the scene
+  this.playButton2 = createButton('Next');
+  this.playButton2.position(width / 2 - 75, height / 2);  // Center the button
+  this.playButton2.size(150, 60);  // Set button size
+  this.stylePlayButton();  // Apply styles to the play button
+ 
+  // On button click, start the scene and play the sound
+    // On button click, move to the next scene
+    this.playButton2.mousePressed(() => {
+      mgr.showScene(Scena2);  // Use a callback function to show the next scene
+    });  }
+
+
+   // Function to style the button (add this if missing)
+   stylePlayButton() {
+    this.playButton2.style('font-size', '24px');
+    this.playButton2.style('background-color', '#444');  // Dark background for the button
+    this.playButton2.style('color', '#fff');  // White text for the button
+    this.playButton2.style('cursor', 'pointer');  // Cursor changes to pointer when hovering
+    this.playButton2.style('border-radius', '30px');  // Rounded corners
+    this.playButton2.style('border', 'none');  // Remove the border
+    this.playButton2.style('padding', '15px 30px');  // Padding inside the button
+    this.playButton2.style('box-shadow', '0 4px 8px rgba(0, 0, 0, 0.2)');  // Add a box shadow
+    this.playButton2.style('transition', 'all 0.3s ease');  // Smooth transition for hover effect
+  }
   
   // Draw function for Scene 1
   draw() {
@@ -191,9 +217,11 @@ class Scena1 {
       console.log("Using amplitude analyzer");  // Debugging
 
       let level = this.amp.getLevel();
+      let scaledLevel = level * 200.0;  // Increase sensitivity by scaling the amplitude
+
 
       // Map the amplitude to the size of the black circle
-      let reactiveSize = map(level, 0, 1, height / 8, height / 2);
+      let reactiveSize = map(scaledLevel, 0, 100, height / 16, height / 1.5);  // Adjust range to make changes more visible
 
       // Update the size of the black circle based on the audio input
       this.shape2.size = reactiveSize;

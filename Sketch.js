@@ -490,7 +490,7 @@ let soundPlayed = false;  // Boolean to track if the sound has been played
 
 function preload() {
   // Preload the sound file (Make sure you have a valid path to the audio file)
-  sound = loadSound('./Assets/underwater.mp3');  // Replace with your actual file path
+  sound = loadSound('./Assets/Rival-Consoles-Untravel.mp3');  // Replace with your actual file path
 }
 
 function setup() {
